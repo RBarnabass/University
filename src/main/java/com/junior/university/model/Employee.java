@@ -1,13 +1,16 @@
 package com.junior.university.model;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.junior.university.enums.Degree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,10 +31,11 @@ public class Employee extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @OneToOne(fetch = FetchType.LAZY)
     private Degree degree;
 
     private BigDecimal salary;
 
-    @ManyToOne
-    private DepartmentEmployee departmentEmployee;
+    @OneToMany(mappedBy = "employee")
+    private List<DepartmentEmployee> departmentEmployees;
 }
