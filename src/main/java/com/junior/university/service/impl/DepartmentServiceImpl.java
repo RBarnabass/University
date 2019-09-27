@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.junior.university.exceptions.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +62,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Employee getHeadOfDepartment(final String departmentName) {
         final DepartmentEmployee departmentEmployee =
-                departmentEmployeeRepository.findByDepartmentNameAndIsHeadOfDepartment(departmentName, true);
+                departmentEmployeeRepository
+                    .findByDepartmentNameAndIsHeadOfDepartment(departmentName, true)
+                    .orElseThrow(() -> new DataNotFoundException("There is no department with this name - " + departmentName));
 
         return departmentEmployee.getEmployee();
     }

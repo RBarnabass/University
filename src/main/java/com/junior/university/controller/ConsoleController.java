@@ -3,6 +3,7 @@ package com.junior.university.controller;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.junior.university.service.ConsoleService;
@@ -16,6 +17,8 @@ public class ConsoleController {
 
     private static final int MAX_MENU_VALUE = 5;
 
+    private static final int START_DELAY = 3000;
+
     private static final Scanner scanner = new Scanner(System.in);
 
     @Autowired
@@ -24,6 +27,7 @@ public class ConsoleController {
     }
 
 
+    @Scheduled(fixedRate = START_DELAY)
     public void start() {
 
         boolean running = true;

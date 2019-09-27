@@ -1,6 +1,7 @@
 package com.junior.university.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ import com.junior.university.model.DepartmentEmployee;
 @Repository
 public interface DepartmentEmployeeRepository extends JpaRepository<DepartmentEmployee, Long> {
 
-    DepartmentEmployee findByDepartmentNameAndIsHeadOfDepartment(final String departmentName, final Boolean head);
+    Optional<DepartmentEmployee> findByDepartmentNameAndIsHeadOfDepartment(final String departmentName, final Boolean head);
 
     List<DepartmentEmployee> findAllByDepartmentName(final String departmentName);
 
