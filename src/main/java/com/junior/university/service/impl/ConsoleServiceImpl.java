@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class ConsoleServiceImpl implements ConsoleService {
 
 
     @Override
+    @Transactional
     public String whoIsHeadOfDepartment(final String departmentName) {
         final Employee headOfDepartment = departmentService.getHeadOfDepartment(departmentName);
 
@@ -36,6 +38,7 @@ public class ConsoleServiceImpl implements ConsoleService {
     }
 
     @Override
+    @Transactional
     public String showDepartmentStatistic(final String departmentName) {
         final Map<String, Integer> departmentStatistic = departmentService.getDepartmentStatistic(departmentName);
 

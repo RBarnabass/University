@@ -29,7 +29,6 @@ public class ConsoleController {
 
     @Scheduled(fixedRate = START_DELAY)
     public void start() {
-
         boolean running = true;
 
         while (running) {
@@ -40,8 +39,7 @@ public class ConsoleController {
     }
 
     private boolean isContinue() {
-
-        int input = getMenuInput();
+        final int input = getMenuInput();
 
         if (input == EXIT_CODE) {
             return false;
@@ -53,9 +51,10 @@ public class ConsoleController {
 
     private int getMenuInput() {
         try {
-            int input = Integer.parseInt(scanner.nextLine().trim());
+            final int input = Integer.parseInt(scanner.nextLine().trim());
             return input <= MAX_MENU_VALUE ? input : getMenuInput();
         } catch (Exception e) {
+            System.out.print("Wrong input try again, please: ");
             return getMenuInput();
         }
     }
