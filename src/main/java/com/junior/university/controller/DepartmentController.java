@@ -36,51 +36,34 @@ public class DepartmentController {
 
     private final ModelMapper modelMapper;
     private final DepartmentService departmentService;
-    private final ConsoleController consoleController;
     private final EmployeeService employeeService;
 
     @Autowired
-    public DepartmentController(final ModelMapper modelMapper, final DepartmentService departmentService,
-                                final ConsoleController consoleController, final EmployeeService employeeService) {
+    public DepartmentController(final ModelMapper modelMapper,
+                                final DepartmentService departmentService, final EmployeeService employeeService) {
 
         this.modelMapper = modelMapper;
         this.departmentService = departmentService;
-        this.consoleController = consoleController;
         this.employeeService = employeeService;
     }
 
-
-    @GetMapping("/start")
-    @ResponseStatus(HttpStatus.OK)
-    public void start() {
-        consoleController.start();
-    }
 
     @PostMapping("/departments")
     @ResponseStatus(HttpStatus.CREATED)
     public DepartmentDTO add(@RequestBody @Valid final DepartmentDTO departmentDTO) {
 
-        log.info("Income Department dto - {}", departmentDTO);
-        Department department = modelMapper.map(departmentDTO, Department.class);
-        Department add = departmentService.add(department);
-        DepartmentDTO departmentDTO1 = modelMapper.map(add, DepartmentDTO.class);
-        log.info("Outcome Department - {}", departmentDTO1);
+        final Department department = modelMapper.map(departmentDTO, Department.class);
+        final Department departmentFromStorage = departmentService.add(department);
 
-        return departmentDTO1;
+        return modelMapper.map(departmentFromStorage, DepartmentDTO.class);
     }
 
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
     public DepartmentDTO addEmployee(@RequestBody @Valid final EmployeeDTO employeeDTO) {
 
-        log.info("Income employee - {}", employeeDTO);
-
-        Department department = departmentService.addEmployee(employeeDTO);
-        DepartmentDTO map1 = modelMapper.map(department, DepartmentDTO.class);
-
-        log.info("Outcome department - {}", map1);
-
-        return map1;
+        final Department department = departmentService.addEmployee(employeeDTO);
+        return modelMapper.map(department, DepartmentDTO.class);
     }
 
     @GetMapping("/departments/head")
